@@ -1,0 +1,32 @@
+const lightLevel = type =>{
+    let light = {}
+    light.flatMap = callback =>
+                        light.type === "lighting" ? 
+                        callback(light.level) : 
+                        lightLevel("switchedOff") 
+
+    if (type === "switchedOff") { 
+        light.type = "switchedOff"
+        return light
+    } else { 
+        return level => {
+            light.type = "lighting"
+            light.level = level
+            return light
+        }
+    }
+}
+
+const change = amount => 
+                        lightDiff =>
+                            lightDiff + amount > 0 ? 
+                            lightLevel("lighting")(lightDiff + amount) : 
+                            lightLevel("switchedOff") 
+
+let light = lightLevel("lighting")(255) 
+
+light = light.flatMap(change(-10))
+console.log(light) 
+
+light = light.flatMap(change(-245))
+console.log(light) 
